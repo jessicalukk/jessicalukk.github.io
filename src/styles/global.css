@@ -945,3 +945,28 @@ footer {
   .dock-item { animation: none; }
 }
 
+/* Metallic animated gradient text – mobile + desktop */
+.metal-text {
+  font-weight: 800;
+  background: conic-gradient(
+    from 0deg,
+    #b7b7b7, #e6e6e6, #b7b7b7, #7f7f7f, #d9d9d9, #b7b7b7
+  );
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;       /* iOS/Safari */
+  color: transparent;
+  -webkit-text-fill-color: transparent; /* iOS/Safari */
+  animation: metal-sheen 3.2s linear infinite;
+}
+
+@keyframes metal-sheen {
+  0%   { background-position:   0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position:   0% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metal-text { animation: none; }
+}
+

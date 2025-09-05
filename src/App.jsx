@@ -20,3 +20,6 @@ export default function App() {
     </>
   )
 }
+
+<h1 className="metal-text">Jessica&nbsp;Luk</h1>
+
