@@ -1,13 +1,7 @@
-# Jessica Luk — React Portfolio (Vite)
+# Jessica Luk — Portfolio (Vite)
 
-A React recreation of your current static site with a hero, experience, projects, and an animated timeline with logos.
 
-## Run locally
-```bash
-npm install
-npm run dev
-```
-Then open the printed local URL.
+
 
 ## Edit content
 - Hero text: `src/components/Hero.jsx`
