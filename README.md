@@ -17,3 +17,4 @@ Then open the printed local URL.
 - Global styles: `src/styles/global.css`
 
 Assets (logos, GIF, resume) live in `/public` so you can reference them like `/spin.gif`.
+# my-website
