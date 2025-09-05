@@ -970,3 +970,39 @@ footer {
   .metal-text { animation: none; }
 }
 
+/* --- Default (desktop) keeps your current style --- */
+#social-dock {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px; /* adjust if your bar is taller */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+
+  background: rgba(15, 15, 20, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+
+  z-index: 50;
+}
+
+/* --- Mobile overrides (only up to tablet width) --- */
+@media (max-width: 768px) {
+  :root {
+    --dock-h: 64px; /* must match the height above */
+  }
+
+  /* add space so content isn’t hidden under the dock */
+  html, body, #root, main {
+    padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0));
+  }
+
+  /* keep it fixed but safe-area aware */
+  #social-dock {
+    bottom: env(safe-area-inset-bottom, 0);
+  }
+}
