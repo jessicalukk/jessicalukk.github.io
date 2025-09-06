@@ -569,12 +569,12 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
 
   /* 2) Tighten the hero block */
   .content-wrapper {
-    padding: 48px 0 20px !important;         /* was 120px 0 60px */
+    padding: 120px 0 60px !important;         /* was 120px 0 60px */
   }
 
   /* 3) Pull the carousel/logos up a bit */
   .carousel-wrapper {
-    margin-top: -250px !important;           /* make more negative to move further up */
+    margin-top: -400px !important;           /* make more negative to move further up */
     padding-top: 0 !important;
   }
   .carousel-below-hero {
