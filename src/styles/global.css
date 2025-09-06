@@ -560,38 +560,25 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
   }
 }
 
-/* === Mobile-safe liquid metal text (works on iOS Safari) === */
-/* Use on the same element as your hero title, e.g. <h1 class="hero-title metal-text"> */
-.hero-title.metal-text{
-  /* visible fallback if clipping not supported */
-  color:#e5e5e5;
+/* === Phone only: shift carousel up === */
+@media (max-width: 768px) {
+  /* how far up to move (increase magnitude to move further up) */
+  :root { --carousel-mobile-shift: -240px; }
 
-  /* iOS/Safari requirements */
-  display:inline-block;                 /* critical for clipping */
-  -webkit-background-clip:text;         /* iOS */
-  background-clip:text;
-  -webkit-text-fill-color:transparent;  /* iOS */
-  
-  /* gradient with safe fallback, then preferred */
-  background-image: linear-gradient(90deg,#b7b7b7,#e6e6e6,#7f7f7f,#d9d9d9,#b7b7b7);
-  background-image: conic-gradient(from 0deg,#b7b7b7,#e6e6e6,#b7b7b7,#7f7f7f,#d9d9d9,#b7b7b7);
-  background-size:200% 200%;
+  /* apply the shift just on phones */
+  .carousel-wrapper {
+    margin-top: var(--carousel-mobile-shift) !important;
+    padding-top: 0 !important;
+  }
 
-  /* smooth animation (will still look fine if user has Reduce Motion on) */
-  animation: metal-sheen 3.2s linear infinite;
-
-  /* fixes rare iOS paint issues */
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+  /* tighten surrounding spacing if needed */
+  .carousel-below-hero {
+    padding-top: 0 !important;
+    padding-bottom: 16px !important;
+  }
 }
 
-@keyframes metal-sheen{
-  0%{   background-position:   0% 50%; }
-  50%{  background-position: 100% 50%; }
-  100%{ background-position:   0% 50%; }
-}
+
 
 
 
