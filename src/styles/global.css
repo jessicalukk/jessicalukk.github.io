@@ -568,46 +568,6 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
 }
 
 
-/* === Mobile-only: shrink space between hero and carousel === */
-@media (max-width: 768px) {
-  /* one knob to tune the gap */
-  :root { --hero-carousel-gap: 8px; } /* try 8–16px */
-
-  /* reduce hero spacing */
-  .hero-title { margin-bottom: 8px !important; }      /* was ~20px */
-  .hero-blurb { margin-bottom: var(--hero-carousel-gap) !important; }
-
-  /* pull the whole hero block's bottom padding in */
-  .content-wrapper { padding-bottom: var(--hero-carousel-gap) !important; }
-
-  /* ensure the carousel doesn't add extra top spacing */
-  .carousel-below-hero,
-  #carousel-anchor { margin-top: 0 !important; padding-top: 0 !important; }
-
-  .carousel-wrapper { margin-top: 0 !important; padding-top: 0 !important; }
-}
-
-/* === Shift the hero name down === */
-:root{
-  --hero-name-offset-desktop: 24px; /* change to taste */
-  --hero-name-offset-mobile:  12px; /* change to taste */
-}
-
-@media (min-width: 769px){
-  .text-content{ margin-top: var(--hero-name-offset-desktop) !important; }
-}
-
-@media (max-width: 768px){
-  .text-content{ margin-top: var(--hero-name-offset-mobile) !important; }
-}
-
-
-
-
-
-
-
-
 
 
 
