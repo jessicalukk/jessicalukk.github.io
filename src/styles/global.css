@@ -572,27 +572,26 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
     padding: 150px 0 60px !important;         /* was 120px 0 60px */
   }
 
-/* === MOBILE-ONLY: pull the entire carousel section UP === */
+/* === MOBILE ONLY: lift the carousel block === */
 @media (max-width: 768px) {
-  :root { --mobile-carousel-up: 220px; } /* ↑ increase to move further UP */
+  :root { --carousel-up: 300px; } /* ↑ increase to move further up */
 
-  /* Move the whole section up visually */
-  .carousel-below-hero {
+  /* Move the whole anchor up and close the gap it leaves */
+  #carousel-anchor {
     position: relative !important;
-    transform: translateY(calc(-1 * var(--mobile-carousel-up))) !important; /* shift UP */
-    will-change: transform;
-    /* close the gap it leaves so the rest of the page also moves up */
-    margin-bottom: calc(-1 * var(--mobile-carousel-up)) !important;
-    padding-top: 0 !important;
+    top: calc(-1 * var(--carousel-up)) !important;     /* shift UP */
+    margin-bottom: calc(-1 * var(--carousel-up)) !important; /* pull following content up */
+    z-index: 3 !important; /* sit above hero/video if overlapping */
   }
 
-  /* Neutralize earlier top margins so our shift is the only one applied */
-  .carousel-below-hero .carousel-wrapper,
+  /* Neutralize earlier per-wrapper spacing so this wins */
   .carousel-wrapper {
     margin-top: 0 !important;
+    padding-top: 0 !important;
     top: 0 !important;
   }
 }
+
 
 
 
