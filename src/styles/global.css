@@ -560,18 +560,6 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
   }
 }
 
-/* === MOBILE-ONLY: compress vertical spacing sitewide === */
-@media (max-width: 768px) {
-  /* 1) Start content closer to the fixed nav (nav is ~72px tall) */
-  main {
-    padding-top: 100px !important;            /* was ~96px */
-  }
-
-  /* 2) Tighten the hero block */
-  .content-wrapper {
-    padding: 150px 0 60px !important;         /* was 120px 0 60px */
-  }
-
 /* === Mobile-only: shrink space between hero and carousel === */
 @media (max-width: 768px) {
   /* one knob to tune the gap */
