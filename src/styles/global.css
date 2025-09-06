@@ -569,7 +569,7 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
 
   /* 2) Tighten the hero block */
   .content-wrapper {
-    padding: 120px 0 60px !important;         /* was 120px 0 60px */
+    padding: 150px 0 60px !important;         /* was 120px 0 60px */
   }
 
   /* 3) Pull the carousel/logos up a bit */
@@ -583,7 +583,7 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
   }
 
   /* 4) Reduce extra gaps in sections */
-  .experience-heading { margin-top: 16px !important; } /* was ~40px */
+  .experience-heading { margin-top: 40px !important; } /* was ~40px */
   .experience-section h2,
   .projects-section h2 { margin-top: 8px !important; }
 }
