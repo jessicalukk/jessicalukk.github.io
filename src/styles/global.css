@@ -567,6 +567,20 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
   .carousel-below-hero .carousel-wrapper { margin-top: 0 !important; } /* no extra offset */
 }
 
+@media (max-width: 768px){
+  :root{ --shift-all: 60px; }
+  main{ padding-top: calc(96px + var(--shift-all)) !important; }
+  .carousel-below-hero .carousel-wrapper{ margin-top: calc(-170px + var(--shift-all)) !important; }
+}
+
+  
+
+
+
+
+
+
+
 
 
 
