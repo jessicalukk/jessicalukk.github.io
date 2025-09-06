@@ -572,59 +572,24 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
     padding: 150px 0 60px !important;         /* was 120px 0 60px */
   }
 
-/* === MOBILE ONLY: force-lift the carousel no matter the wrapper === */
+/* === Mobile-only: shrink space between hero and carousel === */
 @media (max-width: 768px) {
-  /* how far UP to move; increase to move further */
-  :root { --carousel-up: 240px; }
+  /* one knob to tune the gap */
+  :root { --hero-carousel-gap: 12px; } /* try 8–16px */
 
-  /* 1) If your carousel lives inside `.carousel-below-hero` */
-  .carousel-below-hero {
-    position: relative !important;
-  }
-  .carousel-below-hero .carousel-wrapper {
-    position: relative !important;
-    z-index: 3 !important;
-    transform: translateY(calc(-1 * var(--carousel-up))) !important; /* move UP */
-  }
-  /* close the gap so following content also comes up */
-  .carousel-below-hero::after {
-    content: ""; display: block;
-    height: var(--carousel-up); /* spacer to compensate the transform */
-  }
+  /* reduce hero spacing */
+  .hero-title { margin-bottom: 8px !important; }      /* was ~20px */
+  .hero-blurb { margin-bottom: var(--hero-carousel-gap) !important; }
 
-  /* 2) If you mounted a custom anchor wrapper like <div id="carousel-anchor"> */
-  #carousel-anchor {
-    position: relative !important;
-    z-index: 3 !important;
-    transform: translateY(calc(-1 * var(--carousel-up))) !important;
-  }
-  #carousel-anchor::after {
-    content: ""; display: block;
-    height: var(--carousel-up);
-  }
+  /* pull the whole hero block's bottom padding in */
+  .content-wrapper { padding-bottom: var(--hero-carousel-gap) !important; }
 
-  /* 3) Fallback: target the wrapper directly if it’s alone in the tree */
-  body .carousel-wrapper {
-    position: relative !important;
-    z-index: 3 !important;
-    transform: translateY(calc(-1 * var(--carousel-up))) !important;
-  }
-  body .carousel-wrapper::after {
-    content: ""; display: block;
-    height: var(--carousel-up);
-  }
-
-  /* Neutralize earlier spacing that might fight the move */
+  /* ensure the carousel doesn't add extra top spacing */
   .carousel-below-hero,
-  .carousel-below-hero .carousel-wrapper,
-  #carousel-anchor,
-  .carousel-wrapper {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    top: 0 !important;
-  }
-}
+  #carousel-anchor { margin-top: 0 !important; padding-top: 0 !important; }
 
+  .carousel-wrapper { margin-top: 0 !important; padding-top: 0 !important; }
+}
 
 
 
