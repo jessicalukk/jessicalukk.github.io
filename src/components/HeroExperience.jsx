@@ -4,9 +4,9 @@ import LogoCarousel from "./LogoCarousel";
 
 // --- Social links (update to your real URLs) ---
 const LINKS = [
-  { key: "email", img: "/email.png", alt: "Email", href: "mailto:jessica@example.com" },
-  { key: "git", img: "/git.png", alt: "GitHub", href: "https://github.com/yourusername" },
-  { key: "linkedin", img: "/linkedin.png", alt: "LinkedIn", href: "https://www.linkedin.com/in/yourusername/" },
+  { key: "email", img: "/email.png", alt: "Email", href: "mailto:jjaluk@uwaterloo.ca" },
+  { key: "git", img: "/git.png", alt: "GitHub", href: "https://github.com/jessicalukk" },
+  { key: "linkedin", img: "/linkedin.png", alt: "LinkedIn", href: "https://www.linkedin.com/in/jessicaluk101/" },
 ];
 
 // --- Experience data ---
@@ -189,7 +189,7 @@ function FloatingIconDock() {
   }, [mode, mouseX, mouseY, vw, vh]);
 
   return (
-    <div ref={dockRef} className={`dock ${mode}`}>
+    <div id="social-dock" ref={dockRef} className={`dock ${mode}`}>
       <div className="dock-inner">
         {LINKS.map((item, i) => (
           <a
