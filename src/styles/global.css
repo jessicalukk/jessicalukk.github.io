@@ -572,29 +572,25 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
     padding: 150px 0 60px !important;         /* was 120px 0 60px */
   }
 
-  /* === Mobile-only: actually pull the carousel up === */
+/* === MOBILE-ONLY: pull the carousel UP, robust against margin resets === */
 @media (max-width: 768px) {
-  /* how far to lift the carousel (make more negative to move higher) */
-  :root { --carousel-mobile-up: -400px; }
+  :root { --carousel-up: 200px; } /* increase to move further UP */
 
-  /* beat the shorthand margin reset with a more specific selector */
+  /* Move the wrapper up */
   .carousel-below-hero .carousel-wrapper {
-    margin: var(--carousel-mobile-up) auto 0 !important; /* top | horizontal | bottom */
-    padding-top: 0 !important;
+    position: relative !important;
+    top: calc(-1 * var(--carousel-up)) !important; /* shifts UP */
+    margin-top: 0 !important;  /* neutralize any earlier margin rules */
   }
 
-  /* trim surrounding spacing just in case */
-  .carousel-below-hero { 
+  /* Close the empty space left behind so following content also moves up */
+  .carousel-below-hero {
+    margin-bottom: calc(-1 * var(--carousel-up)) !important;
     padding-top: 0 !important;
     padding-bottom: 16px !important;
   }
 }
 
-  /* 4) Reduce extra gaps in sections */
-  .experience-heading { margin-top: 40px !important; } /* was ~40px */
-  .experience-section h2,
-  .projects-section h2 { margin-top: 8px !important; }
-}
 
 
 
