@@ -575,7 +575,7 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
   /* === Mobile-only: actually pull the carousel up === */
 @media (max-width: 768px) {
   /* how far to lift the carousel (make more negative to move higher) */
-  :root { --carousel-mobile-up: -220px; }
+  :root { --carousel-mobile-up: -400px; }
 
   /* beat the shorthand margin reset with a more specific selector */
   .carousel-below-hero .carousel-wrapper {
