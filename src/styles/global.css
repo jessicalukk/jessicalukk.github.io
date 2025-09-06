@@ -1001,3 +1001,50 @@ footer {
 /* B) SAFE fallback so hero text never appears invisible */
 .hero-title { color: #e5e5e5; }  /* harmless on desktop, fixes blank-on-mobile */
 
+/* --- Metallic text with safe fallback (mobile + desktop) --- */
+.metal-text {            /* fallback so text is visible if clipping isn't supported */
+  color: #e5e5e5;
+  font-weight: 800;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .metal-text {
+    background: conic-gradient(
+      from 0deg,
+      #b7b7b7, #e6e6e6, #b7b7b7, #7f7f7f, #d9d9d9, #b7b7b7
+    );
+    background-size: 200% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;   /* Safari/iOS */
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: metal-sheen 3.2s linear infinite;
+  }
+  @keyframes metal-sheen {
+    0%   { background-position:   0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position:   0% 50%; }
+  }
+  @media (prefers-reduced-motion: reduce) { .metal-text { animation: none; } }
+}
+
+/* Always render the dock above content */
+#social-dock { z-index: 9999; }
+
+/* Phones/tablets only */
+@media (max-width: 768px) {
+  :root { --dock-h: 64px; } /* change if your dock is taller/shorter */
+
+  /* If your old CSS hid the dock behind hover/transform, force it on for touch */
+  @media (hover: none) and (pointer: coarse) {
+    #social-dock {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+    }
+  }
+
+  /* Respect iOS safe area and reserve space so content isn't hidden */
+  body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0)); }
+  #social-dock { bottom: env(safe-area-inset-bottom, 0); }
+}
