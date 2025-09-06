@@ -326,48 +326,40 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
 /* ===== Final: hero title visibility fallback (kept as in your sheet) ===== */
 .hero-title { color: #e5e5e5; }
 
-/* === FIX SOCIAL BAR LAYOUT (override conflicting rules) === */
-#social-dock {
-  left: 50% !important;
-  right: auto !important;
-  top: auto !important;
-  bottom: 18px !important;
-  transform: translateX(-50%) !important;
-  width: min(92vw, 680px) !important;
+/* === SOCIAL DOCK — LOCK HORIZONTAL ON MOBILE, VERTICAL ON DESKTOP === */
 
-  /* container does not block scroll; icons remain clickable */
-  pointer-events: none;
-}
-#social-dock .dock-inner { pointer-events: auto; }
-#social-dock.dock.horizontal { top: auto !important; }
-
+/* Mobile (≤768px): keep bottom-centered and horizontal no matter what */
 @media (max-width: 768px) {
-  body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0)); }
-  #social-dock { bottom: env(safe-area-inset-bottom, 18px) !important; }
-}
-/* === SOCIAL DOCK — RESPONSIVE OVERRIDE (final) === */
-
-/* Mobile (≤768px): bottom-centered pill */
-@media (max-width: 768px) {
-  /* Reserve space so content isn't hidden under the fixed dock */
+  /* keep content from being covered */
   body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0)); }
 
-  #social-dock {
+  /* force layout regardless of any .horizontal/.vertical class changes */
+  #social-dock,
+  #social-dock.dock,
+  #social-dock.horizontal,
+  #social-dock.vertical,
+  #social-dock.dock.horizontal,
+  #social-dock.dock.vertical {
     position: fixed !important;
+    top: auto !important;
     left: 50% !important;
     right: auto !important;
-    top: auto !important;
     bottom: env(safe-area-inset-bottom, 18px) !important;
     transform: translateX(-50%) !important;
     width: min(92vw, 680px) !important;
-
-    /* container doesn't block scroll; icons remain clickable */
-    pointer-events: none;
+    pointer-events: none; /* container doesn't block scroll */
   }
-  #social-dock .dock-inner { pointer-events: auto; }
+
+  #social-dock .dock-inner {
+    flex-direction: row !important;      /* stay horizontal */
+    flex-wrap: nowrap !important;         /* prevent wrapping to a column */
+    border-radius: 999px !important;      /* pill */
+    padding: clamp(8px, 1.6vw, 12px) clamp(12px, 3.2vw, 16px) !important;
+    pointer-events: auto;                 /* icons remain clickable */
+  }
 }
 
-/* Desktop (≥769px): vertical dock on the left, centered vertically */
+/* Desktop (≥769px): left-side vertical stack */
 @media (min-width: 769px) {
   #social-dock {
     position: fixed !important;
@@ -377,13 +369,14 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
     bottom: auto !important;
     transform: translateY(-50%) !important;
     width: auto !important;
-
     pointer-events: none;
   }
   #social-dock .dock-inner {
-    flex-direction: column !important;  /* stack icons */
+    flex-direction: column !important;    /* stack icons vertically */
     border-radius: 24px !important;
     padding: 12px !important;
     pointer-events: auto;
   }
 }
+
+
