@@ -33,9 +33,15 @@ jobs:
       - name: Build
         run: npm run build
 
-      # SPA refresh support (safe even if not using React Router)
-      - name: Add 404 fallback
-        run: cp dist/index.html dist/404.html || true
+      # 👇 add this (prepares the Pages env)
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      # SPA refresh + disable Jekyll so assets are served as-is
+      - name: Add 404 + nojekyll
+        run: |
+          cp dist/index.html dist/404.html || true
+          touch dist/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
