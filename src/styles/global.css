@@ -572,24 +572,28 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
     padding: 150px 0 60px !important;         /* was 120px 0 60px */
   }
 
-/* === MOBILE-ONLY: pull the carousel UP, robust against margin resets === */
+/* === MOBILE-ONLY: pull the entire carousel section UP === */
 @media (max-width: 768px) {
-  :root { --carousel-up: 200px; } /* increase to move further UP */
+  :root { --mobile-carousel-up: 220px; } /* ↑ increase to move further UP */
 
-  /* Move the wrapper up */
-  .carousel-below-hero .carousel-wrapper {
+  /* Move the whole section up visually */
+  .carousel-below-hero {
     position: relative !important;
-    top: calc(-1 * var(--carousel-up)) !important; /* shifts UP */
-    margin-top: 0 !important;  /* neutralize any earlier margin rules */
+    transform: translateY(calc(-1 * var(--mobile-carousel-up))) !important; /* shift UP */
+    will-change: transform;
+    /* close the gap it leaves so the rest of the page also moves up */
+    margin-bottom: calc(-1 * var(--mobile-carousel-up)) !important;
+    padding-top: 0 !important;
   }
 
-  /* Close the empty space left behind so following content also moves up */
-  .carousel-below-hero {
-    margin-bottom: calc(-1 * var(--carousel-up)) !important;
-    padding-top: 0 !important;
-    padding-bottom: 16px !important;
+  /* Neutralize earlier top margins so our shift is the only one applied */
+  .carousel-below-hero .carousel-wrapper,
+  .carousel-wrapper {
+    margin-top: 0 !important;
+    top: 0 !important;
   }
 }
+
 
 
 
