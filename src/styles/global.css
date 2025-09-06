@@ -573,6 +573,37 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
   .carousel-below-hero .carousel-wrapper{ margin-top: calc(-170px + var(--shift-all)) !important; }
 }
 
+/* === MOBILE-ONLY: center hero + carousel; hide experience === */
+@media (max-width: 768px){
+  /* Center hero text */
+  .content-wrapper{
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 100px 0 8px !important;   /* tweak the 100px to move the block up/down */
+    gap: 12px !important;
+  }
+  .text-content{ text-align: center !important; }
+  .hero-title{ margin: 0 0 8px !important; }
+  .hero-blurb{ margin: 0 auto 10px !important; max-width: 92vw !important; }
+
+  /* Put the carousel right under the hero and keep it centered */
+  .carousel-below-hero{ padding: 8px 0 24px !important; }
+  .carousel-below-hero .carousel-wrapper{
+    margin-top: 0 !important;      /* cancels your -170px so layout is predictable */
+    padding-top: 0 !important;
+  }
+
+  /* Hide experience/timeline on mobile */
+  .experience-section,
+  .experience-heading,
+  .experience-container,
+  .timeline-item{
+    display: none !important;
+  }
+}
+
   
 
 
