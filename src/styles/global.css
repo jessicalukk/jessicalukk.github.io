@@ -560,29 +560,31 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
   }
 }
 
-/* ===== FIX: close any accidentally unclosed mobile @media blocks ===== */
-
- 
-/* === Mobile-only: shrink space between hero and carousel === */
+/* Mobile: remove the big hero media block so the carousel sits higher */
 @media (max-width: 768px) {
-  /* Start content a bit closer to the fixed nav */
-  main { padding-top: 84px !important; }
-
-  /* Tighten the hero block spacing */
-  .hero-title { margin-bottom: 6px !important; }
-  .hero-blurb { margin-bottom: 10px !important; }
-  .content-wrapper { padding-bottom: 8px !important; }
-
-  /* Pull the carousel up under the hero (beat the reset rule) */
-  .carousel-below-hero .carousel-wrapper {
-    margin-top: -400px !important;   /* make more negative to move closer */
-    padding-top: 0 !important;
-  }
+  .image-content { display: none !important; }
+  .content-wrapper { padding: 48px 0 12px !important; }      /* tighten hero block */
+  .carousel-below-hero .carousel-wrapper { margin-top: 0 !important; } /* no extra offset */
 }
 
-/* TEMP: debug outline — verify we’re hitting the carousel on phones */
+
+/* === Mobile-only: shrink space between hero and carousel === */
 @media (max-width: 768px) {
-  .carousel-below-hero .carousel-wrapper { outline: 2px dashed #ff5a5f !important; }
+  /* one knob to tune the gap */
+  :root { --hero-carousel-gap: 12px; } /* try 8–16px */
+
+  /* reduce hero spacing */
+  .hero-title { margin-bottom: 8px !important; }      /* was ~20px */
+  .hero-blurb { margin-bottom: var(--hero-carousel-gap) !important; }
+
+  /* pull the whole hero block's bottom padding in */
+  .content-wrapper { padding-bottom: var(--hero-carousel-gap) !important; }
+
+  /* ensure the carousel doesn't add extra top spacing */
+  .carousel-below-hero,
+  #carousel-anchor { margin-top: 0 !important; padding-top: 0 !important; }
+
+  .carousel-wrapper { margin-top: 0 !important; padding-top: 0 !important; }
 }
 
 
