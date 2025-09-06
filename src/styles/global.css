@@ -572,15 +572,23 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
     padding: 150px 0 60px !important;         /* was 120px 0 60px */
   }
 
-  /* 3) Pull the carousel/logos up a bit */
-  .carousel-wrapper {
-    margin-top: -400px !important;           /* make more negative to move further up */
+  /* === Mobile-only: actually pull the carousel up === */
+@media (max-width: 768px) {
+  /* how far to lift the carousel (make more negative to move higher) */
+  :root { --carousel-mobile-up: -220px; }
+
+  /* beat the shorthand margin reset with a more specific selector */
+  .carousel-below-hero .carousel-wrapper {
+    margin: var(--carousel-mobile-up) auto 0 !important; /* top | horizontal | bottom */
     padding-top: 0 !important;
   }
-  .carousel-below-hero {
+
+  /* trim surrounding spacing just in case */
+  .carousel-below-hero { 
     padding-top: 0 !important;
     padding-bottom: 16px !important;
   }
+}
 
   /* 4) Reduce extra gaps in sections */
   .experience-heading { margin-top: 40px !important; } /* was ~40px */
