@@ -1144,3 +1144,62 @@ footer {
   }
 }
 
+/* ==== Liquid metal that works on phones (fallback + iOS-safe) ==== */
+.metal-text{
+  display:inline-block;                 /* required for iOS clipping */
+  font-weight:800;
+  line-height:1.05;
+  color:#e5e5e5;                        /* visible if clipping unsupported */
+  -webkit-box-decoration-break:clone;   /* handles <br/> lines on iOS */
+  box-decoration-break:clone;
+}
+
+/* Apply gradient text only where clipping is supported */
+@supports ((-webkit-background-clip:text) or (background-clip:text)) {
+  .metal-text{
+    /* 1) fallback first: linear-gradient (works almost everywhere) */
+    background: linear-gradient(
+      90deg,
+      #b7b7b7, #e6e6e6, #b7b7b7, #7f7f7f, #d9d9d9, #b7b7b7
+    );
+    /* 2) preferred: conic-gradient (overrides when supported) */
+    background: conic-gradient(
+      from 0deg,
+      #b7b7b7, #e6e6e6, #b7b7b7, #7f7f7f, #d9d9d9, #b7b7b7
+    );
+    background-size:200% 200%;
+    background-clip:text; -webkit-background-clip:text;
+    color:transparent; -webkit-text-fill-color:transparent;
+    animation: metal-sheen 3.2s linear infinite;
+    will-change: background-position;
+  }
+
+  @keyframes metal-sheen{
+    0%   { background-position:   0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position:   0% 50%; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .metal-text{ animation:none; }  /* remove if you want to force animation */
+}
+
+/* ==== Mobile-only: keep dock visible and out of the way ==== */
+#social-dock { z-index: 9999; }  /* above content */
+
+@media (max-width:768px){
+  /* Reserve space so content isn’t hidden under the fixed dock.
+     Change 64px if your dock is taller/shorter. */
+  body{ padding-bottom: calc(64px + env(safe-area-inset-bottom, 0)); }
+
+  /* Force bottom position on phones (overrides any "top" rules) */
+  #social-dock{
+    position: fixed !important;
+    left: 50% !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: env(safe-area-inset-bottom, 0) !important;
+    transform: translateX(-50%) !important;
+  }
+}
