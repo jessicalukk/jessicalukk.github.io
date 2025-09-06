@@ -360,23 +360,249 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
 }
 
 /* Desktop (≥769px): left-side vertical stack */
-@media (min-width: 769px) {
-  #social-dock {
-    position: fixed !important;
-    top: 50% !important;
-    left: 18px !important;
-    right: auto !important;
-    bottom: auto !important;
-    transform: translateY(-50%) !important;
-    width: auto !important;
-    pointer-events: none;
+/* === SOCIAL DOCK — bottom-centered pill on all screens (like screenshot) === */
+
+   :root { --dock-h: 88px; } /* page padding when the pill sits at the bottom */
+
+   /* ---- Base / shared ---- */
+   #social-dock {
+     position: fixed !important;
+     z-index: 9999;
+     pointer-events: none; /* wrapper doesn't block scroll */
+     transition:
+       left 280ms ease,
+       right 280ms ease,
+       top 280ms ease,
+       bottom 280ms ease,
+       transform 280ms ease,
+       width 280ms ease;
+   }
+   #social-dock .dock-inner {
+     pointer-events: auto; /* icons stay clickable */
+   }
+   #social-dock .dock-item {
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     width: clamp(56px, 6vw, 72px);
+     height: clamp(56px, 6vw, 72px);
+     border-radius: 50%;
+     background: #111; /* solid dark circles */
+     border: 1px solid rgba(255,255,255,0.12);
+     box-shadow: 0 6px 18px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+     transition: transform 180ms ease;
+   }
+   #social-dock .dock-item:hover { transform: translateY(-4px); }
+   #social-dock .dock-icon {
+     width: 56%;
+     height: 56%;
+     object-fit: contain;
+     filter: drop-shadow(0 1px 1px rgba(0,0,0,0.25));
+     user-select: none;
+     -webkit-user-drag: none;
+   }
+   
+   /* ---- Mobile & small tablets: ALWAYS bottom pill ---- */
+   @media (max-width: 768px) {
+     /* keep content from hiding behind the fixed pill */
+     body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0)); }
+   
+     #social-dock {
+       left: 50% !important;
+       right: auto !important;
+       top: auto !important;
+       bottom: env(safe-area-inset-bottom, 28px) !important;
+       transform: translateX(-50%) !important;
+       width: min(900px, 92vw) !important;
+     }
+   
+     #social-dock .dock-inner {
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       gap: clamp(20px, 4vw, 36px);
+       padding: 18px clamp(22px, 4vw, 32px);
+       background: rgba(255,255,255,0.06);
+       border: 1px solid rgba(255,255,255,0.10);
+       backdrop-filter: blur(10px);
+       border-radius: 999px; /* pill */
+     }
+   }
+   
+/* =========================
+   SOCIAL DOCK — FINAL CSS
+   ========================= */
+   :root{
+    --dock-h: 72px;              /* extra bottom space on phones so content isn't covered */
+    --dock-icon-mobile: 44px;    /* icon size on mobile */
+    --dock-icon-desktop: 56px;   /* icon size on desktop */
+    --dock-snap-range: 24vh;     /* when desktop switches to side */
   }
-  #social-dock .dock-inner {
-    flex-direction: column !important;    /* stack icons vertically */
-    border-radius: 24px !important;
-    padding: 12px !important;
-    pointer-events: auto;
+  
+  /* Base (no background behind icons) */
+  #social-dock{
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none; /* wrapper doesn't block scroll */
+  }
+  #social-dock .dock-inner{
+    display:flex; align-items:center; justify-content:center;
+    gap: 20px; padding: 0;
+    background: transparent; border: 0; box-shadow: none;
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+    border-radius: 0;
+    pointer-events: auto;  /* icons clickable */
+  }
+  #social-dock .dock-item{
+    flex: 0 0 auto;        /* stop flex squish */
+    width:auto; height:auto; padding:0;
+    background: transparent; border:0; box-shadow:none;
+  }
+  #social-dock .dock-icon{
+    width: var(--dock-icon-mobile);
+    height: var(--dock-icon-mobile);
+    display:block; object-fit:contain;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,.25));
+    user-select:none; -webkit-user-drag:none;
+  }
+  
+  /* Mobile / small tablets: bottom-center */
+  @media (max-width:768px){
+    body{ padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom,0)); }
+    #social-dock{
+      left:50%; right:auto; top:auto;
+      bottom: env(safe-area-inset-bottom,24px);
+      transform: translateX(-50%);
+      width:auto;
+    }
+  }
+  
+  /* Desktop: start bottom-center, then SNAP to left rail on scroll */
+  @media (min-width:769px){
+    /* initial */
+    #social-dock{
+      left:50%; right:auto; top:auto; bottom:28px;
+      transform: translateX(-50%);
+      width:auto;
+    }
+    #social-dock .dock-icon{
+      width: var(--dock-icon-desktop);
+      height: var(--dock-icon-desktop);
+    }
+  
+    /* Fallback: if scroll-driven animations not supported, stay bottom-center */
+    @supports not (animation-timeline: scroll()){
+      /* no extra rules needed */
+    }
+  
+    /* Modern browsers: scroll-driven, SNAP (no in-between jank) */
+    @supports (animation-timeline: scroll()){
+      #social-dock{
+        animation: dockPosSnap 1 steps(1,end) both;
+        animation-timeline: scroll(root block);
+        animation-range: 0 var(--dock-snap-range);
+      }
+      @keyframes dockPosSnap{
+        from{ left:50%; bottom:28px; top:auto; transform: translateX(-50%); }
+        to  { left:18px; bottom:auto; top:50%; transform: translateY(-50%); }
+      }
+  
+      #social-dock .dock-inner{
+        animation: dockLayoutSnap 1 steps(1,end) both;
+        animation-timeline: scroll(root block);
+        animation-range: 0 var(--dock-snap-range);
+      }
+      @keyframes dockLayoutSnap{
+        from{ flex-direction: row; }
+        to  { flex-direction: column; gap:16px; }
+      }
+    }
+  }
+  
+  /* === Circular social icons === */
+:root{
+  --dock-circle-mobile: 54px;   /* circle diameter on phones */
+  --dock-circle-desktop: 64px;  /* circle diameter on desktop */
+  --dock-icon-scale: 0.58;      /* icon size relative to circle */
+}
+
+#social-dock .dock-item{
+  flex: 0 0 auto !important;
+  width: var(--dock-circle-mobile);
+  height: var(--dock-circle-mobile);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+
+  /* style the circle */
+  background: #111; /* change to transparent for “hollow” style */
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+#social-dock .dock-icon{
+  width: calc(var(--dock-circle-mobile) * var(--dock-icon-scale)) !important;
+  height: calc(var(--dock-circle-mobile) * var(--dock-icon-scale)) !important;
+  object-fit: contain;
+}
+
+/* desktop sizes */
+@media (min-width: 769px){
+  #social-dock .dock-item{
+    width: var(--dock-circle-desktop);
+    height: var(--dock-circle-desktop);
+  }
+  #social-dock .dock-icon{
+    width: calc(var(--dock-circle-desktop) * var(--dock-icon-scale)) !important;
+    height: calc(var(--dock-circle-desktop) * var(--dock-icon-scale)) !important;
   }
 }
+
+/* === Mobile-safe liquid metal text (works on iOS Safari) === */
+/* Use on the same element as your hero title, e.g. <h1 class="hero-title metal-text"> */
+.hero-title.metal-text{
+  /* visible fallback if clipping not supported */
+  color:#e5e5e5;
+
+  /* iOS/Safari requirements */
+  display:inline-block;                 /* critical for clipping */
+  -webkit-background-clip:text;         /* iOS */
+  background-clip:text;
+  -webkit-text-fill-color:transparent;  /* iOS */
+  
+  /* gradient with safe fallback, then preferred */
+  background-image: linear-gradient(90deg,#b7b7b7,#e6e6e6,#7f7f7f,#d9d9d9,#b7b7b7);
+  background-image: conic-gradient(from 0deg,#b7b7b7,#e6e6e6,#b7b7b7,#7f7f7f,#d9d9d9,#b7b7b7);
+  background-size:200% 200%;
+
+  /* smooth animation (will still look fine if user has Reduce Motion on) */
+  animation: metal-sheen 3.2s linear infinite;
+
+  /* fixes rare iOS paint issues */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+@keyframes metal-sheen{
+  0%{   background-position:   0% 50%; }
+  50%{  background-position: 100% 50%; }
+  100%{ background-position:   0% 50%; }
+}
+
+
+
+
+
+  
+  
+
+
+
+
+
 
 
