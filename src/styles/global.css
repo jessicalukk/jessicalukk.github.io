@@ -564,7 +564,7 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
 @media (max-width: 768px) {
   /* 1) Start content closer to the fixed nav (nav is ~72px tall) */
   main {
-    padding-top: 76px !important;            /* was ~96px */
+    padding-top: 100px !important;            /* was ~96px */
   }
 
   /* 2) Tighten the hero block */
@@ -574,7 +574,7 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
 
   /* 3) Pull the carousel/logos up a bit */
   .carousel-wrapper {
-    margin-top: -140px !important;           /* make more negative to move further up */
+    margin-top: -250px !important;           /* make more negative to move further up */
     padding-top: 0 !important;
   }
   .carousel-below-hero {
