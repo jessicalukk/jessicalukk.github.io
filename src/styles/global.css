@@ -560,23 +560,34 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
   }
 }
 
-/* === Phone only: shift carousel up === */
+/* === MOBILE-ONLY: compress vertical spacing sitewide === */
 @media (max-width: 768px) {
-  /* how far up to move (increase magnitude to move further up) */
-  :root { --carousel-mobile-shift: -240px; }
-
-  /* apply the shift just on phones */
-  .carousel-wrapper {
-    margin-top: var(--carousel-mobile-shift) !important;
-    padding-top: 0 !important;
+  /* 1) Start content closer to the fixed nav (nav is ~72px tall) */
+  main {
+    padding-top: 76px !important;            /* was ~96px */
   }
 
-  /* tighten surrounding spacing if needed */
+  /* 2) Tighten the hero block */
+  .content-wrapper {
+    padding: 48px 0 20px !important;         /* was 120px 0 60px */
+  }
+
+  /* 3) Pull the carousel/logos up a bit */
+  .carousel-wrapper {
+    margin-top: -140px !important;           /* make more negative to move further up */
+    padding-top: 0 !important;
+  }
   .carousel-below-hero {
     padding-top: 0 !important;
     padding-bottom: 16px !important;
   }
+
+  /* 4) Reduce extra gaps in sections */
+  .experience-heading { margin-top: 16px !important; } /* was ~40px */
+  .experience-section h2,
+  .projects-section h2 { margin-top: 8px !important; }
 }
+
 
 
 
