@@ -571,7 +571,7 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
 /* === Mobile-only: shrink space between hero and carousel === */
 @media (max-width: 768px) {
   /* one knob to tune the gap */
-  :root { --hero-carousel-gap: px; } /* try 8–16px */
+  :root { --hero-carousel-gap: 12px; } /* try 8–16px */
 
   /* reduce hero spacing */
   .hero-title { margin-bottom: 8px !important; }      /* was ~20px */
@@ -586,6 +586,41 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
 
   .carousel-wrapper { margin-top: 0 !important; padding-top: 0 !important; }
 }
+
+/* ==== MOBILE SPACING FIX ONLY ==== */
+@media (max-width: 768px) {
+  /* tighten hero block */
+  .image-content { display: none !important; }
+
+  .content-wrapper {
+    flex-direction: column !important;
+    text-align: center !important;
+    padding-top: 64px !important;   /* reduced top padding */
+    padding-bottom: 12px !important; /* smaller bottom padding */
+    gap: 16px !important;           /* tighter gap between title and blurb */
+  }
+
+  .hero-title {
+    margin-bottom: 30px !important;
+  }
+
+  .hero-blurb {
+    font-size: 16px !important;
+    margin: 0 auto 8px auto !important;
+  }
+
+  /* remove old negative margins from carousel */
+  .carousel-wrapper {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  .carousel-below-hero {
+    margin-top: 30px !important;
+    padding-top: 0 !important;
+  }
+}
+
 
 
 

@@ -5,7 +5,7 @@ const items = [
     year: '2025',
     logo: '/cibc_logo.png',
     alt: 'CIBC logo',
-    text: 'Data Analyst'
+    text: 'Data'
   },
   {
     year: '2024',
