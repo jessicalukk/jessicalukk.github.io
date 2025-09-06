@@ -990,19 +990,14 @@ footer {
   z-index: 50;
 }
 
-/* --- Mobile overrides (only up to tablet width) --- */
+/* A) MOBILE: make room for the fixed social dock so it doesn't cover content */
 @media (max-width: 768px) {
-  :root {
-    --dock-h: 64px; /* must match the height above */
-  }
-
-  /* add space so content isn’t hidden under the dock */
-  html, body, #root, main {
-    padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0));
-  }
-
-  /* keep it fixed but safe-area aware */
-  #social-dock {
-    bottom: env(safe-area-inset-bottom, 0);
-  }
+  /* 64px = dock height; change if yours differs */
+  body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0)); }
+  /* keep dock just above iOS home indicator */
+  #social-dock { bottom: env(safe-area-inset-bottom, 0); }
 }
+
+/* B) SAFE fallback so hero text never appears invisible */
+.hero-title { color: #e5e5e5; }  /* harmless on desktop, fixes blank-on-mobile */
+
