@@ -1048,3 +1048,99 @@ footer {
   body { padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0)); }
   #social-dock { bottom: env(safe-area-inset-bottom, 0); }
 }
+
+/* Make the metal text work on iOS + multi-line headings */
+.metal-text{
+  display: inline-block;           /* critical for iOS text clipping */
+  line-height: 1.05;
+  font-weight: 800;
+  color: #e5e5e5;                  /* visible fallback if clipping fails */
+  -webkit-box-decoration-break: clone; /* handles <br/> lines properly on iOS */
+  box-decoration-break: clone;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .metal-text{
+    background: conic-gradient(
+      from 0deg,
+      #b7b7b7, #e6e6e6, #b7b7b7, #7f7f7f, #d9d9d9, #b7b7b7
+    );
+    background-size: 200% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;   /* iOS/Safari */
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: metal-sheen 3.2s linear infinite;
+    will-change: background-position;
+  }
+
+  @keyframes metal-sheen {
+    0%   { background-position:   0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position:   0% 50%; }
+  }
+}
+
+/* OPTIONAL: if your phone has “Reduce Motion” enabled, animation pauses.
+   Uncomment the block below to FORCE animation even with reduce-motion. */
+/*
+@media (prefers-reduced-motion: reduce) {
+  .metal-text { animation: metal-sheen 3.2s linear infinite !important; }
+}
+*/
+
+/* =========================
+   FINAL OVERRIDES (APPEND)
+   ========================= */
+
+/* --- Liquid metal: iOS-safe + multi-line safe + visible fallback --- */
+.metal-text{
+  display:inline-block;                    /* critical for iOS clipping */
+  font-weight:800;
+  line-height:1.05;
+  color:#e5e5e5;                           /* visible fallback if clip unsupported */
+  -webkit-box-decoration-break:clone;      /* handles <br/> lines on iOS */
+  box-decoration-break:clone;
+}
+
+@supports ((-webkit-background-clip:text) or (background-clip:text)) {
+  .metal-text{
+    background:conic-gradient(
+      from 0deg,
+      #b7b7b7, #e6e6e6, #b7b7b7, #7f7f7f, #d9d9d9, #b7b7b7
+    );
+    background-size:200% 200%;
+    background-clip:text; -webkit-background-clip:text;
+    color:transparent; -webkit-text-fill-color:transparent;
+    animation:metal-sheen 3.2s linear infinite;
+    will-change:background-position;
+  }
+  @keyframes metal-sheen{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .metal-text{ animation:none; }
+}
+
+/* --- Mobile dock: force to bottom, respect safe-area, reserve space --- */
+#social-dock{ z-index:9999; } /* ensure above content */
+
+@media (max-width:768px){
+  /* 64px = your dock height; change if yours differs */
+  body{ padding-bottom:calc(64px + env(safe-area-inset-bottom,0)); }
+
+  /* override any 'top' rules so the dock stays at the bottom on phones */
+  #social-dock{
+    position:fixed !important;
+    left:50% !important;
+    right:auto !important;
+    top:auto !important;
+    bottom:env(safe-area-inset-bottom,0) !important;
+    transform:translateX(-50%) !important;
+  }
+}
+
