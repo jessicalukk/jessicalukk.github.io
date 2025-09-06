@@ -325,3 +325,65 @@ footer { text-align: center; padding: 40px 16px; color: #bbb; }
 
 /* ===== Final: hero title visibility fallback (kept as in your sheet) ===== */
 .hero-title { color: #e5e5e5; }
+
+/* === FIX SOCIAL BAR LAYOUT (override conflicting rules) === */
+#social-dock {
+  left: 50% !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: 18px !important;
+  transform: translateX(-50%) !important;
+  width: min(92vw, 680px) !important;
+
+  /* container does not block scroll; icons remain clickable */
+  pointer-events: none;
+}
+#social-dock .dock-inner { pointer-events: auto; }
+#social-dock.dock.horizontal { top: auto !important; }
+
+@media (max-width: 768px) {
+  body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0)); }
+  #social-dock { bottom: env(safe-area-inset-bottom, 18px) !important; }
+}
+/* === SOCIAL DOCK — RESPONSIVE OVERRIDE (final) === */
+
+/* Mobile (≤768px): bottom-centered pill */
+@media (max-width: 768px) {
+  /* Reserve space so content isn't hidden under the fixed dock */
+  body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0)); }
+
+  #social-dock {
+    position: fixed !important;
+    left: 50% !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: env(safe-area-inset-bottom, 18px) !important;
+    transform: translateX(-50%) !important;
+    width: min(92vw, 680px) !important;
+
+    /* container doesn't block scroll; icons remain clickable */
+    pointer-events: none;
+  }
+  #social-dock .dock-inner { pointer-events: auto; }
+}
+
+/* Desktop (≥769px): vertical dock on the left, centered vertically */
+@media (min-width: 769px) {
+  #social-dock {
+    position: fixed !important;
+    top: 50% !important;
+    left: 18px !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: translateY(-50%) !important;
+    width: auto !important;
+
+    pointer-events: none;
+  }
+  #social-dock .dock-inner {
+    flex-direction: column !important;  /* stack icons */
+    border-radius: 24px !important;
+    padding: 12px !important;
+    pointer-events: auto;
+  }
+}
